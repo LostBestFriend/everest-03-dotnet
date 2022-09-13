@@ -23,7 +23,7 @@ namespace CustomerCrudApi
             return Ok(_customers.Get());
 
         }
-        [HttpGet]
+        [HttpGet("get-specific")]
         public IActionResult GetSpecific(string cpf, string email)
         {
             var result = _customers.GetSpecific(cpf, email);
