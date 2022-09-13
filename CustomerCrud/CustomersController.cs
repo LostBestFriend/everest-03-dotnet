@@ -1,33 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace _01_Back_End_Criação_de_Usuário
+namespace CustomerCrudApi
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
-
         private readonly ICustomersRepository _customers;
+
         public CustomersController(ICustomersRepository customers)
         {
             _customers = customers;
         }
-
         [HttpPost]
-        public virtual ActionResult Create([FromBody] CustomersModel model)
+        public IActionResult Create([FromBody] CustomersModel model)
         {
             return StatusCode(_customers.Create(model));
         }
-
-        [HttpGet("Get All Customers")]
-        public ActionResult Get()
+        [HttpGet]
+        public IActionResult Get()
         {
             return Ok(_customers.Get());
 
         }
-
-        [HttpGet("Get Specific Customer")]
-        public ActionResult GetSpecific(string cpf, string email)
+        [HttpGet]
+        public IActionResult GetSpecific(string cpf, string email)
         {
             var result = _customers.GetSpecific(cpf, email);
 
@@ -37,9 +34,8 @@ namespace _01_Back_End_Criação_de_Usuário
             }
             return NotFound($"Customer Not Found with this Email: {email} and Cpf: {cpf}");
         }
-
         [HttpPut]
-        public ActionResult Update(CustomersModel customer)
+        public IActionResult Update(CustomersModel customer)
         {
             var result = _customers.Update(customer);
             if ( result == 404)
@@ -48,9 +44,8 @@ namespace _01_Back_End_Criação_de_Usuário
             }
             return StatusCode(result);
         }
-
-        [HttpDelete("Delete Customer by Email and Cpf")]
-        public ActionResult DeleteByUser(string cpf, string email)
+        [HttpDelete]
+        public IActionResult DeleteByUser(string cpf, string email)
         {
             var result = _customers.Delete(cpf, email);
             if (result == 404)

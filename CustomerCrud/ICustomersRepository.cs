@@ -1,4 +1,4 @@
-﻿namespace _01_Back_End_Criação_de_Usuário
+﻿namespace CustomerCrudApi
 {
     public interface ICustomersRepository
     {
@@ -8,7 +8,6 @@
         public int Update(CustomersModel model);
         public CustomersModel GetSpecific(string cpf, string email);
         public int Delete(string cpf, string email);
-
 
     }
 }

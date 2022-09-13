@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-
-namespace _01_Back_End_Criação_de_Usuário
+﻿namespace CustomerCrudApi
 {
     public class CustomersRepository : ICustomersRepository
     {
@@ -15,28 +13,23 @@ namespace _01_Back_End_Criação_de_Usuário
         {
             customer.Cpf = customer.Cpf.Trim().Replace(".", "").Replace("-", "");
             customer.Id = customersList.Count + 1;
-            CustomersValidator valid = new();
-            ValidationResult result = valid.Validate(customer);
 
-            if (result.IsValid)
+            if (!customersList.Any())
             {
-                if (!customersList.Any())
+                customersList.Add(customer);
+                return 201;
+            }
+
+            foreach (CustomersModel c in customersList)
+            {
+                if (customer.Cpf != c.Cpf && customer.Email != c.Email)
                 {
                     customersList.Add(customer);
                     return 201;
                 }
-
-                foreach (CustomersModel c in customersList)
+                else
                 {
-                    if (customer.Cpf != c.Cpf && customer.Email != c.Email)
-                    {
-                        customersList.Add(customer);
-                        return 201;
-                    }
-                    else
-                    {
-                        return 409;
-                    }
+                    return 409;
                 }
             }
             return 400;

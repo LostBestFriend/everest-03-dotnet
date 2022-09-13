@@ -1,4 +1,4 @@
-﻿namespace _01_Back_End_Criação_de_Usuário
+﻿namespace CustomerCrudApi
 {
     public static class CPFValidation
     {

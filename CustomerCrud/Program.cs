@@ -1,4 +1,4 @@
-using _01_Back_End_Criação_de_Usuário;
+using CustomerCrudApi;
 using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
