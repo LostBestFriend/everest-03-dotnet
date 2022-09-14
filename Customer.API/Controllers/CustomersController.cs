@@ -73,7 +73,7 @@ namespace Customer.API.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteByUser(long id)
         {
             try
