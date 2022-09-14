@@ -1,4 +1,4 @@
-﻿namespace CustomerCrudApi
+﻿namespace Customer.DomainModels.Models
 {
     public abstract class BaseModel
     {

@@ -1,10 +1,11 @@
-﻿using FluentValidation;
+﻿using Customer.DomainModels.Models;
+using FluentValidation;
 
-namespace CustomerCrudApi
+namespace Customer.AppServices.Validations
 {
-    public class CustomersValidator : AbstractValidator<CustomersModel>
+    public class CustomerValidator : AbstractValidator<CustomersModel>
     {
-        public CustomersValidator()
+        public CustomerValidator()
         {
 
             RuleFor(x => x.FullName).NotEmpty().WithMessage("Currency required");
@@ -17,7 +18,7 @@ namespace CustomerCrudApi
                 .EmailAddress()
                 .Equal(x => x.Email).WithMessage("Email confirmation must be equal to Email");
 
-            RuleFor(x => CPFValidation.IsCPFValid(x.Cpf))
+            RuleFor(x => CPFValidator.IsCPFValid(x.Cpf))
                 .NotEmpty()
                 .WithMessage("CPF is invalid");
 
@@ -35,6 +36,8 @@ namespace CustomerCrudApi
             RuleFor(x => x.PostalCode).NotEmpty().WithMessage("Currency required");
             RuleFor(x => x.Address).NotEmpty().WithMessage("Currency required");
             RuleFor(x => x.Number).NotEmpty().WithMessage("Currency required");
+
         }
     }
 }
+

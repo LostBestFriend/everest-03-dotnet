@@ -1,6 +1,6 @@
-﻿namespace CustomerCrudApi
+﻿namespace Customer.AppServices.Validations
 {
-    public static class CPFValidation
+    public class CPFValidator
     {
         public static bool IsCPFValid(string cpf)
         {
@@ -16,7 +16,7 @@
 
             if (cpf.Length != 11) return false;
 
-            tempCpf = cpf.Substring(0,9);
+            tempCpf = cpf.Substring(0, 9);
             soma = 0;
 
             for (int i = 0; i < 9; i++)
@@ -28,7 +28,8 @@
             if (resto < 2)
             {
                 resto = 0;
-            } else
+            }
+            else
             {
                 resto = 11 - resto;
             }
@@ -46,7 +47,8 @@
             if (resto < 2)
             {
                 resto = 0;
-            } else
+            }
+            else
             {
                 resto = 11 - resto;
             }
