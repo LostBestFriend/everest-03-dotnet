@@ -1,4 +1,5 @@
 using CustomerCrudApi;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ICustomersRepository, CustomersRepository>();
-builder.Services.AddMvc();
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CustomersValidator>());
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddScoped<IValidator<CustomersModel>, CustomersValidator>();
 
 var app = builder.Build();
 

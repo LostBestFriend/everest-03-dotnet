@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerCrudApi
 {
@@ -10,19 +11,37 @@ namespace CustomerCrudApi
 
         public CustomersController(ICustomersRepository customers)
         {
-            _customers = customers;
+            _customers = customers ?? throw new ArgumentNullException(nameof(customers));
         }
+
         [HttpPost]
-        public IActionResult Create([FromBody] CustomersModel model)
+        public IActionResult Create(CustomersModel model)
         {
-            return StatusCode(_customers.Create(model));
+            try
+            {
+                var newCustomer = _customers.Create(model);
+                return CreatedAtRoute(nameof(Get), new { id = model.Id}, model);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
-        [HttpGet]
+
+        [HttpGet(Name = "Get")]
         public IActionResult Get()
         {
-            return Ok(_customers.Get());
-
+            try
+            {
+                var result = _customers.Get();
+                return result.Count == 0 ? NoContent() : Ok(result);
+            }
+            catch (Exception e)
+            {
+                return Problem("Operation not completed");
+            }
         }
+
         [HttpGet("get-specific")]
         public IActionResult GetSpecific(string cpf, string email)
         {
@@ -34,26 +53,38 @@ namespace CustomerCrudApi
             }
             return NotFound($"Customer Not Found with this Email: {email} and Cpf: {cpf}");
         }
+
         [HttpPut]
-        public IActionResult Update(CustomersModel customer)
+        public IActionResult Update(long id, CustomersModel customer)
         {
-            var result = _customers.Update(customer);
-            if ( result == 404)
+            try
             {
-                return NotFound($"Customer Not Found with this Email: {customer.Email} and Cpf: {customer.Cpf}");
+                _customers.Update(id, customer);
+                return Ok("Customer Update Successfully");
             }
-            return StatusCode(result);
+            catch (ArgumentNullException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
+
         [HttpDelete]
         public IActionResult DeleteByUser(string cpf, string email)
         {
-            var result = _customers.Delete(cpf, email);
-            if (result == 404)
+            try
             {
-                return NotFound($"Customer Not Found with this Email: {email} and Cpf: {cpf}");
-
+                _customers.Delete(cpf, email);
+                return Ok();
             }
-            return StatusCode(result);
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+
         }
     }
 }

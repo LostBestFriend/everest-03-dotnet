@@ -2,12 +2,10 @@
 {
     public interface ICustomersRepository
     {
-        public List<CustomersModel> Get();
-        public CustomersModel GetById(long id);
-        public int Create(CustomersModel model);
-        public int Update(CustomersModel model);
-        public CustomersModel GetSpecific(string cpf, string email);
-        public int Delete(string cpf, string email);
-
-    }
+        List<CustomersModel> Get();
+        CustomersModel GetSpecific(string cpf, string email);
+        long Create(CustomersModel model);
+        void Update(long id, CustomersModel model);
+        void Delete(string cpf, string email);
+    }  
 }

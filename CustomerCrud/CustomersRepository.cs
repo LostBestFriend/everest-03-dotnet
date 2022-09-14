@@ -1,104 +1,59 @@
-﻿namespace CustomerCrudApi
+﻿using FluentValidation;
+
+namespace CustomerCrudApi
 {
     public class CustomersRepository : ICustomersRepository
     {
-        public List<CustomersModel> customersList = new List<CustomersModel>();
-        private CustomersModel customerModel = new CustomersModel();
+        public readonly List<CustomersModel> customersList = new();
 
         public List<CustomersModel> Get()
         {
             return customersList;
         }
-        public int Create(CustomersModel customer)
-        {
-            customer.Cpf = customer.Cpf.Trim().Replace(".", "").Replace("-", "");
-            customer.Id = customersList.Count + 1;
 
-            if (!customersList.Any())
+        public long Create(CustomersModel customer)
+        {
+            if (customersList.Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
             {
+                throw new ArgumentException($"Email or Cpf already used. Email: {customer.Email}, Cpf: {customer.Cpf}");
+            }
+            if (customersList.Count() == 0)
+            {
+                customer.Id = 1;
                 customersList.Add(customer);
-                return 201;
+                return customer.Id;
             }
-
-            foreach (CustomersModel c in customersList)
-            {
-                if (customer.Cpf != c.Cpf && customer.Email != c.Email)
-                {
-                    customersList.Add(customer);
-                    return 201;
-                }
-                else
-                {
-                    return 409;
-                }
-            }
-            return 400;
+            customer.Id = customersList.Last().Id + 1;
+            customersList.Add(customer);
+            return customer.Id;
         }
-        public int Delete(string cpf, string email)
+
+        public void Delete(string cpf, string email)
         {
-            cpf = cpf.Trim().Replace(".", "").Replace("-", "");
-
-            if (!customersList.Any())
+            cpf = cpf.Formatter();
+            var customerToDelete = customersList.FirstOrDefault(x => x.Cpf == cpf && x.Email == email);
+            if (customerToDelete == null)
             {
-                return 400;
+                throw new ArgumentNullException($"Customer Not Found with this Email: {email} and Cpf: {cpf}");
             }
-
-            foreach (CustomersModel c in customersList)
-            {
-                if (cpf == c.Cpf && email == c.Email)
-                {
-                    customersList.Remove(c);
-                    return 200;
-                }
-            }
-            return 404;
+            customersList.Remove(customerToDelete);
         }
 
-        public CustomersModel GetById(long id)
+        public void Update(long id, CustomersModel customer)
         {
-            customerModel = customersList.Find(x => x.Id == id)!;
+            customer.Cpf = customer.Cpf.Formatter();
 
-            return customerModel!;
+            int index = customersList.FindIndex(x => x.Id == id);
+            if (index == -1) throw new ArgumentException($"User Not Found with this Id: {id}");
+            if (customersList.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != id)) 
+                throw new ArgumentNullException($"Email or Cpf already exists. Email: {customer.Email}, Cpf: {customer.Cpf}");
+            customer.Id = customersList[index].Id;
+            customersList[index] = customer;
         }
-        public int Update(CustomersModel customer)
-        {
-            customer.Cpf = customer.Cpf.Trim().Replace(".", "").Replace("-", "");
-            if (!customersList.Any())
-            {
-                return 400;
-            }
 
-            foreach (CustomersModel c in customersList)
-            {
-                if (customer.Cpf == c.Cpf && customer.Email == c.Email)
-                {
-                    c.Address = customer.Address;
-                    c.City = customer.City;
-                    c.Cpf = customer.Cpf;
-                    c.Cellphone = customer.Cellphone;
-                    c.Country = customer.Country;
-                    c.FullName = customer.FullName;
-                    c.Number = customer.Number;
-                    c.DateOfBirth = customer.DateOfBirth;
-                    c.Email = customer.Email;
-                    c.EmailConfirmation = customer.EmailConfirmation;
-                    c.PostalCode = customer.PostalCode;
-                    c.Whatsapp = customer.Whatsapp;
-                    c.EmailSms = customer.EmailSms;
-                    return 200;
-                }
-                return 404;
-            }
-            return 400;
-        }
         public CustomersModel GetSpecific(string cpf, string email)
         {
-            cpf = cpf.Trim().Replace(".", "").Replace("-", "");
-
-            if (!customersList.Any())
-            {
-                return null;
-            }
+            cpf = cpf.Formatter();
 
             foreach (CustomersModel c in customersList)
             {
@@ -106,7 +61,6 @@
                 {
                     return c;
                 }
-                return null;
             }
             return null;
         }
