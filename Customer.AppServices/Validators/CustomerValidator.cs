@@ -36,7 +36,6 @@ namespace Customer.AppServices.Validations
             RuleFor(x => x.PostalCode).NotEmpty().WithMessage("Currency required");
             RuleFor(x => x.Address).NotEmpty().WithMessage("Currency required");
             RuleFor(x => x.Number).NotEmpty().WithMessage("Currency required");
-
         }
     }
 }
