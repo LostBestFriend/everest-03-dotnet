@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerCrudApi
 {
@@ -20,7 +19,7 @@ namespace CustomerCrudApi
             try
             {
                 var newCustomer = _customers.Create(model);
-                return CreatedAtRoute(nameof(Get), new { id = model.Id}, model);
+                return CreatedAtRoute(nameof(Get), new { id = model.Id});
             }
             catch (ArgumentException e)
             {
@@ -34,15 +33,15 @@ namespace CustomerCrudApi
             try
             {
                 var result = _customers.Get();
-                return result.Count == 0 ? NoContent() : Ok(result);
+                return result.Any() ? NoContent() : Ok(result);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return Problem("Operation not completed");
+                return Problem($"Operation not completed. Error: {ex.Message}");
             }
         }
 
-        [HttpGet("get-specific")]
+        [HttpGet("cpf-or-email")]
         public IActionResult GetSpecific(string cpf, string email)
         {
             var result = _customers.GetSpecific(cpf, email);
@@ -54,13 +53,13 @@ namespace CustomerCrudApi
             return NotFound($"Customer Not Found with this Email: {email} and Cpf: {cpf}");
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Update(long id, CustomersModel customer)
         {
             try
             {
                 _customers.Update(id, customer);
-                return Ok("Customer Update Successfully");
+                return Ok();
             }
             catch (ArgumentNullException e)
             {
@@ -72,19 +71,18 @@ namespace CustomerCrudApi
             }
         }
 
-        [HttpDelete]
-        public IActionResult DeleteByUser(string cpf, string email)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteByUser(long id)
         {
             try
             {
-                _customers.Delete(cpf, email);
+                _customers.Delete(id);
                 return Ok();
             }
             catch (ArgumentException e)
             {
                 return NotFound(e.Message);
             }
-
         }
     }
 }

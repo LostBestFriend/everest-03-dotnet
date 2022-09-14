@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace CustomerCrudApi
+﻿namespace CustomerCrudApi
 {
     public class CustomersModel : BaseModel
     {
