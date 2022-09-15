@@ -34,7 +34,7 @@ namespace Customer.API.Controllers
             }
         }
 
-        [HttpGet( Name="Get")]
+        [HttpGet(Name="Get")]
         public IActionResult Get()
         {
             try

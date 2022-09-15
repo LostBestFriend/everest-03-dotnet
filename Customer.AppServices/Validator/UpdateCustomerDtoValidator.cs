@@ -7,28 +7,27 @@ namespace Customer.AppServices.Validator
     {
         public UpdateCustomerDtoValidator()
         {
-            RuleFor(x => x.FullName).NotEmpty().WithMessage("Currency required");
+            RuleFor(x => x.FullName).NotEmpty();
 
             RuleFor(x => x.Email)
-                    .NotEmpty().WithMessage("Currency Required")
-                    .EmailAddress().WithMessage("Invalid Email");
+                    .NotEmpty()
+                    .EmailAddress();
 
             RuleFor(x => x.Cpf)
-                    .NotEmpty().WithMessage("Currency required")
+                    .NotEmpty()
                     .Must(cpf => CpfValidator.IsCpfValid(cpf)).WithMessage("CPF is invalid");
 
-            RuleFor(x => x.Cellphone).NotEmpty().WithMessage("Currency required");
+            RuleFor(x => x.Cellphone).NotEmpty();
 
             RuleFor(x => x.DateOfBirth)
                     .NotEmpty()
-                    .GreaterThan(DateTime.MinValue)
-                    .WithMessage("Currency required");
-
-            RuleFor(x => x.Country).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.City).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.PostalCode).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.Address).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.Number).NotEmpty().WithMessage("Currency required");
+                    .GreaterThan(DateTime.MinValue);
+                    
+            RuleFor(x => x.Country).NotEmpty();
+            RuleFor(x => x.City).NotEmpty();
+            RuleFor(x => x.PostalCode).NotEmpty();
+            RuleFor(x => x.Address).NotEmpty();
+            RuleFor(x => x.Number).NotEmpty();
         }
     }
 }

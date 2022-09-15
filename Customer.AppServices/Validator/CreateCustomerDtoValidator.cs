@@ -8,7 +8,7 @@ namespace Customer.AppServices.Validator
         public CreateCustomerDtoValidator()
         {
 
-            RuleFor(x => x.FullName).NotEmpty().WithMessage("Currency required");
+            RuleFor(x => x.FullName).NotEmpty();
 
             RuleFor(x => x.Email)
                 .NotEmpty();
@@ -16,26 +16,25 @@ namespace Customer.AppServices.Validator
             RuleFor(x => x.EmailConfirmation)
                 .NotEmpty()
                 .EmailAddress()
-                .Equal(x => x.Email).WithMessage("Email confirmation must be equal to Email");
+                .Equal(x => x.Email);
 
             RuleFor(x => CpfValidator.IsCpfValid(x.Cpf))
                 .NotEmpty()
                 .WithMessage("CPF is invalid");
 
-            RuleFor(x => x.Cellphone).NotEmpty().WithMessage("Currency required");
+            RuleFor(x => x.Cellphone).NotEmpty();
 
             RuleFor(x => x.DateOfBirth)
                 .NotEmpty()
-                .GreaterThan(DateTime.MinValue)
-                .WithMessage("Currency required");
-
-            RuleFor(x => x.EmailSms).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.Whatsapp).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.Country).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.City).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.PostalCode).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.Address).NotEmpty().WithMessage("Currency required");
-            RuleFor(x => x.Number).NotEmpty().WithMessage("Currency required");
+                .GreaterThan(DateTime.MinValue);
+                
+            RuleFor(x => x.EmailSms).NotEmpty();
+            RuleFor(x => x.Whatsapp).NotEmpty();
+            RuleFor(x => x.Country).NotEmpty();
+            RuleFor(x => x.City).NotEmpty();
+            RuleFor(x => x.PostalCode).NotEmpty();
+            RuleFor(x => x.Address).NotEmpty();
+            RuleFor(x => x.Number).NotEmpty();
         }
     }
 }

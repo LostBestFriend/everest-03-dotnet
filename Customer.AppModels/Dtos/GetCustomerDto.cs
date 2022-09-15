@@ -3,7 +3,6 @@
     public class GetCustomerDto
     {
         public GetCustomerDto(
-
             long id,
             string fullName,
             string email,

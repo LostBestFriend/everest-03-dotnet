@@ -2,7 +2,7 @@
 {
     public static class StringExtensions
     {
-        public static string Formatter( this string str)
+        public static string Formatter(this string str)
         {
             return str.Trim().Replace(".", "").Replace("-", "");
         }
