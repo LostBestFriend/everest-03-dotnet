@@ -36,18 +36,15 @@ namespace Customer.DomainServices.Services
             customersList.Remove(customerToDelete);
         }
 
-        public void Update(CustomersModel customer)
+        public void Update(long id, CustomersModel customer)
         {
-            customer.Cpf = customer.Cpf.Formatter();
+            var index = customersList.FindIndex(x => x.Id == id);
+            if (index == -1) throw new ArgumentException($"User Not Found with this Id: {id}");
 
-            var index = customersList.FindIndex(x => x.Id == customer.Id);
-            if (index == -1) throw new ArgumentException($"User Not Found with this Id: {customer.Id}");
-
-            if (customersList.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
+            if (customersList.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != id))
                 throw new ArgumentNullException($"Email or Cpf already exists.");
 
-            customer.Id = customersList[index].Id;
-
+            customer.Id = id;
             customersList[index] = customer;
         }
 
@@ -61,4 +58,3 @@ namespace Customer.DomainServices.Services
         }
     }
 }
-

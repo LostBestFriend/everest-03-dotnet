@@ -1,13 +1,13 @@
-﻿using Customer.DomainModels.Models;
+﻿using Customer.AppModels.Dtos;
 
 namespace Customer.AppServices.Services.Interface
 {
     public interface ICustomerAppService
     {
-        List<CustomersModel> Get();
-        CustomersModel? GetSpecific(string cpf, string email);
-        long Create(CustomersModel model);
-        void Update(CustomersModel model);
+        List<GetCustomerDto> Get();
+        GetCustomerDto GetSpecific(string cpf, string email);
+        long Create(CreateCustomerDto model);
+        void Update(long id, UpdateCustomerDto model);
         void Delete(long id);
     }
 }

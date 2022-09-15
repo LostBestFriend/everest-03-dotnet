@@ -1,5 +1,6 @@
-﻿using Customer.AppServices.Services.Interface;
-using Customer.DomainModels.Models;
+﻿using Customer.AppModels.Dtos;
+using Customer.AppServices.Services.Interface;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Customer.API.Controllers
@@ -10,26 +11,30 @@ namespace Customer.API.Controllers
     {
         private readonly ICustomerAppService _customerAppService;
 
-        public CustomersController(ICustomerAppService customerAppService)
+        public CustomersController(ICustomerAppService customersAppService)
         {
-            _customerAppService = customerAppService ?? throw new ArgumentNullException(nameof(customerAppService));
+            _customerAppService = customersAppService ?? throw new ArgumentNullException(nameof(customersAppService));
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CustomersModel model)
+        public IActionResult Create(CreateCustomerDto model)
         {
             try
             {
                 var newCustomer = _customerAppService.Create(model);
-                return CreatedAtRoute(nameof(Get), new { id = model.Id }, model);
+                return CreatedAtRoute(nameof(Get), new { id = newCustomer }, model);
             }
-            catch (ArgumentException e)
+            catch (ValidationException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
             }
         }
 
-        [HttpGet(Name = "Get")]
+        [HttpGet( Name="Get")]
         public IActionResult Get()
         {
             try
@@ -39,11 +44,12 @@ namespace Customer.API.Controllers
             }
             catch (Exception ex)
             {
-                return Problem($"Operation not completed. Error: {ex.Message}");
+                return Problem(ex.Message);
             }
-        }
 
-        [HttpGet("cpf-or-email")]
+         }
+
+        [HttpGet("cpf-and-email")]
         public IActionResult GetSpecific(string cpf, string email)
         {
             var result = _customerAppService.GetSpecific(cpf, email);
@@ -56,20 +62,20 @@ namespace Customer.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(CustomersModel customer)
+        public IActionResult Update(long id, UpdateCustomerDto customer)
         {
             try
             {
-                _customerAppService.Update(customer);
-                return Ok("Customer Update Successfully");
+                _customerAppService.Update(id, customer);
+                return Ok();
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException ex)
             {
-                return NotFound(e.Message);
+                return NotFound(ex.Message);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -79,7 +85,7 @@ namespace Customer.API.Controllers
             try
             {
                 _customerAppService.Delete(id);
-                return Ok();
+                return NoContent();
             }
             catch (ArgumentException e)
             {

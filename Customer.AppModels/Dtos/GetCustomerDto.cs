@@ -1,10 +1,10 @@
-﻿using Customer.DomainModels.Formatters;
-
-namespace Customer.DomainModels.Models
+﻿namespace Customer.AppModels.Dtos
 {
-    public class CustomersModel : BaseModel
+    public class GetCustomerDto
     {
-        public CustomersModel(
+        public GetCustomerDto(
+
+            long id,
             string fullName,
             string email,
             string emailConfirmation,
@@ -19,20 +19,26 @@ namespace Customer.DomainModels.Models
             string address,
             int number)
         {
+            Id = id;
             FullName = fullName;
             Email = email;
             EmailConfirmation = emailConfirmation;
-            EmailSms = emailSms;
+            Cpf = cpf;
             Cellphone = cellphone;
             DateOfBirth = dateOfBirth;
-            Cpf = cpf.Formatter();
+            EmailSms = emailSms;
             Whatsapp = whatsapp;
+            Cpf = cpf;
             Country = country;
             City = city;
             PostalCode = postalCode;
             Address = address;
             Number = number;
         }
+
+        protected GetCustomerDto() { }
+
+        public long Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string EmailConfirmation { get; set; }
@@ -40,11 +46,12 @@ namespace Customer.DomainModels.Models
         public string Cellphone { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
-        public string PostalCode { get; set; }
         public string Address { get; set; }
-        public int Number { get; set; }
+        public string PostalCode { get; set; }
         public bool EmailSms { get; set; }
         public bool Whatsapp { get; set; }
+        public int Number { get; set; }
         public DateTime DateOfBirth { get; set; }
     }
 }
+
