@@ -1,6 +1,6 @@
 using Customer.AppServices.Services;
 using Customer.AppServices.Services.Interface;
-using Customer.AppServices.Validations;
+using Customer.AppServices.Validators;
 using Customer.DomainModels.Models;
 using Customer.DomainServices.Services;
 using Customer.DomainServices.Services.Interfaces;

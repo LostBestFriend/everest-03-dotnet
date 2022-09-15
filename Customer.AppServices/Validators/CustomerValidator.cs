@@ -1,7 +1,7 @@
 ﻿using Customer.DomainModels.Models;
 using FluentValidation;
 
-namespace Customer.AppServices.Validations
+namespace Customer.AppServices.Validators
 {
     public class CustomerValidator : AbstractValidator<CustomersModel>
     {

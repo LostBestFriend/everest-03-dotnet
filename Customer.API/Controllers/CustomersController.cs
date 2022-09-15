@@ -35,7 +35,7 @@ namespace Customer.API.Controllers
             try
             {
                 var result = _customerAppService.Get();
-                return result.Any() ? NoContent() : Ok(result);
+                return result.Any() ? Ok(result) : NoContent();
             }
             catch (Exception ex)
             {

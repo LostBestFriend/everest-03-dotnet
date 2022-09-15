@@ -1,4 +1,4 @@
-﻿namespace Customer.AppServices.Validations
+﻿namespace Customer.AppServices.Validators
 {
     public class CpfValidator
     {
