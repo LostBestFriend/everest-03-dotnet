@@ -1,4 +1,9 @@
-using CustomerCrudApi;
+using Customer.AppServices.Services;
+using Customer.AppServices.Services.Interface;
+using Customer.AppServices.Validators;
+using Customer.DomainModels.Models;
+using Customer.DomainServices.Services;
+using Customer.DomainServices.Services.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 
@@ -10,9 +15,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<ICustomersRepository, CustomersRepository>();
+builder.Services.AddSingleton<ICustomerService, CustomerService>();
+builder.Services.AddTransient<ICustomerAppService, CustomerAppService>();
 builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddScoped<IValidator<CustomersModel>, CustomersValidator>();
+builder.Services.AddScoped<IValidator<CustomersModel>, CustomerValidator>();
 
 var app = builder.Build();
 
@@ -30,4 +36,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

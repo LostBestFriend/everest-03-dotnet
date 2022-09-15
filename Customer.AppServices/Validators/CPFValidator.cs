@@ -1,8 +1,8 @@
-﻿namespace CustomerCrudApi
+﻿namespace Customer.AppServices.Validators
 {
-    public static class CPFValidation
+    public class CpfValidator
     {
-        public static bool IsCPFValid(string cpf)
+        public static bool IsCpfValid(string cpf)
         {
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -16,7 +16,10 @@
 
             if (cpf.Length != 11) return false;
 
-            tempCpf = cpf.Substring(0,9);
+            if (cpf.All(x => x == cpf.First())) 
+                return false;
+
+            tempCpf = cpf.Substring(0, 9);
             soma = 0;
 
             for (int i = 0; i < 9; i++)
@@ -28,7 +31,8 @@
             if (resto < 2)
             {
                 resto = 0;
-            } else
+            }
+            else
             {
                 resto = 11 - resto;
             }
@@ -46,7 +50,8 @@
             if (resto < 2)
             {
                 resto = 0;
-            } else
+            }
+            else
             {
                 resto = 11 - resto;
             }

@@ -1,25 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Customer.AppServices.Services.Interface;
+using Customer.DomainModels.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace CustomerCrudApi
+namespace Customer.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomersRepository _customers;
+        private readonly ICustomerAppService _customerAppService;
 
-        public CustomersController(ICustomersRepository customers)
+        public CustomersController(ICustomerAppService customerAppService)
         {
-            _customers = customers ?? throw new ArgumentNullException(nameof(customers));
+            _customerAppService = customerAppService ?? throw new ArgumentNullException(nameof(customerAppService));
         }
 
         [HttpPost]
-        public IActionResult Create(CustomersModel model)
+        public IActionResult Create([FromBody] CustomersModel model)
         {
             try
             {
-                var newCustomer = _customers.Create(model);
-                return CreatedAtRoute(nameof(Get), new { id = model.Id});
+                var newCustomer = _customerAppService.Create(model);
+                return CreatedAtRoute(nameof(Get), new { id = model.Id }, model);
             }
             catch (ArgumentException e)
             {
@@ -32,8 +34,8 @@ namespace CustomerCrudApi
         {
             try
             {
-                var result = _customers.Get();
-                return result.Any() ? NoContent() : Ok(result);
+                var result = _customerAppService.Get();
+                return result.Any() ? Ok(result) : NoContent();
             }
             catch (Exception ex)
             {
@@ -44,7 +46,7 @@ namespace CustomerCrudApi
         [HttpGet("cpf-or-email")]
         public IActionResult GetSpecific(string cpf, string email)
         {
-            var result = _customers.GetSpecific(cpf, email);
+            var result = _customerAppService.GetSpecific(cpf, email);
 
             if (result != null)
             {
@@ -54,12 +56,12 @@ namespace CustomerCrudApi
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, CustomersModel customer)
+        public IActionResult Update(CustomersModel customer)
         {
             try
             {
-                _customers.Update(id, customer);
-                return Ok();
+                _customerAppService.Update(customer);
+                return Ok("Customer Update Successfully");
             }
             catch (ArgumentNullException e)
             {
@@ -76,7 +78,7 @@ namespace CustomerCrudApi
         {
             try
             {
-                _customers.Delete(id);
+                _customerAppService.Delete(id);
                 return Ok();
             }
             catch (ArgumentException e)
