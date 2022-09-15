@@ -27,13 +27,13 @@ namespace Customer.DomainServices.Services
 
         public void Delete(long id)
         {
-            var customerToDelete = customersList.Find(x => x.Id == id);
-            if (customerToDelete == null)
+            var customerToDelete = customersList.FindIndex(x => x.Id == id);
+            if (customerToDelete == -1)
             {
                 throw new ArgumentNullException($"Customer Not Found with this Id: {id}");
             }
 
-            customersList.Remove(customerToDelete);
+            customersList.RemoveAt(customerToDelete);
         }
 
         public void Update(long id, CustomersModel customer)
