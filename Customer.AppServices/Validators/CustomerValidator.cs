@@ -18,7 +18,7 @@ namespace Customer.AppServices.Validations
                 .EmailAddress()
                 .Equal(x => x.Email).WithMessage("Email confirmation must be equal to Email");
 
-            RuleFor(x => CPFValidator.IsCPFValid(x.Cpf))
+            RuleFor(x => CpfValidator.IsCpfValid(x.Cpf))
                 .NotEmpty()
                 .WithMessage("CPF is invalid");
 

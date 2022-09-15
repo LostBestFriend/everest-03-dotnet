@@ -4,6 +4,7 @@ namespace Customer.DomainModels.Models
 {
     public class CustomersModel : BaseModel
     {
+
         public CustomersModel (string fullName, string email, string emailConfirmation, string cpf, string cellphone, DateTime dateOfBirth, bool emailSms, bool whatsapp, string country, string city, string postalCode, string address, int number)
         {
             FullName = fullName;
@@ -20,6 +21,7 @@ namespace Customer.DomainModels.Models
             Address = address;
             Number = number;
         }
+
         public string FullName { get; set; }
         public string Email { get; set; }
         public string EmailConfirmation { get; set; }
