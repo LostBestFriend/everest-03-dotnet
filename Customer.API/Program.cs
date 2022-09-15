@@ -1,11 +1,12 @@
+using Customer.AppModels.Dtos;
 using Customer.AppServices.Services;
 using Customer.AppServices.Services.Interface;
-using Customer.AppServices.Validators;
-using Customer.DomainModels.Models;
+using Customer.AppServices.Validator;
 using Customer.DomainServices.Services;
 using Customer.DomainServices.Services.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
 builder.Services.AddTransient<ICustomerAppService, CustomerAppService>();
 builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddScoped<IValidator<CustomersModel>, CustomerValidator>();
+builder.Services.AddScoped<IValidator<CreateCustomerDto>, CreateCustomerDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateCustomerDto>, UpdateCustomerDtoValidator>();
+builder.Services.AddAutoMapper(Assembly.Load("Customer.AppServices"));
 
 var app = builder.Build();
 
@@ -28,8 +31,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

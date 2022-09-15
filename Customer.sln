@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.AppServices", "Customer.AppServices\Customer.AppServices.csproj", "{70ECEC44-56CD-4D9C-9C17-666EB2C7BD7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.AppServices", "Customer.AppServices\Customer.AppServices.csproj", "{70ECEC44-56CD-4D9C-9C17-666EB2C7BD7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.DomainServices", "Customer.DomainServices\Customer.DomainServices.csproj", "{1FC26DE9-DB82-40B5-8013-D975CC2FB9FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.DomainServices", "Customer.DomainServices\Customer.DomainServices.csproj", "{1FC26DE9-DB82-40B5-8013-D975CC2FB9FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.DomainModels", "Customer.DomainModels\Customer.DomainModels.csproj", "{B79D3418-DBB4-4C43-A992-1EE304851F36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.DomainModels", "Customer.DomainModels\Customer.DomainModels.csproj", "{B79D3418-DBB4-4C43-A992-1EE304851F36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.API", "Customer.API\Customer.API.csproj", "{76537561-6D84-4F04-B948-E0574369251E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.API", "Customer.API\Customer.API.csproj", "{76537561-6D84-4F04-B948-E0574369251E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{28C1C466-642F-4399-AFD6-3774AADD9520}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7ED4D27A-E11D-474A-92FE-A06D580488A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.AppModels", "Customer.AppModels\Customer.AppModels.csproj", "{9EE622D2-79E9-48B8-991B-31067B700C5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{76537561-6D84-4F04-B948-E0574369251E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76537561-6D84-4F04-B948-E0574369251E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76537561-6D84-4F04-B948-E0574369251E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EE622D2-79E9-48B8-991B-31067B700C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE622D2-79E9-48B8-991B-31067B700C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EE622D2-79E9-48B8-991B-31067B700C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EE622D2-79E9-48B8-991B-31067B700C5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{1FC26DE9-DB82-40B5-8013-D975CC2FB9FD} = {7ED4D27A-E11D-474A-92FE-A06D580488A6}
 		{B79D3418-DBB4-4C43-A992-1EE304851F36} = {7ED4D27A-E11D-474A-92FE-A06D580488A6}
 		{76537561-6D84-4F04-B948-E0574369251E} = {28C1C466-642F-4399-AFD6-3774AADD9520}
+		{9EE622D2-79E9-48B8-991B-31067B700C5A} = {7ED4D27A-E11D-474A-92FE-A06D580488A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4BD44F92-8664-4418-B498-AAC2D7E9F7A1}

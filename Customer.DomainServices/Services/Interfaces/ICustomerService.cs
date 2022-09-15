@@ -7,7 +7,7 @@ namespace Customer.DomainServices.Services.Interfaces
         List<CustomersModel> Get();
         CustomersModel? GetSpecific(string cpf, string email);
         long Create(CustomersModel model);
-        void Update(CustomersModel model);
+        void Update(long id, CustomersModel model);
         void Delete(long id);
     }
 }

@@ -27,27 +27,24 @@ namespace Customer.DomainServices.Services
 
         public void Delete(long id)
         {
-            var customerToDelete = customersList.Find(x => x.Id == id);
-            if (customerToDelete == null)
+            var customerToDelete = customersList.FindIndex(x => x.Id == id);
+            if (customerToDelete == -1)
             {
                 throw new ArgumentNullException($"Customer Not Found with this Id: {id}");
             }
 
-            customersList.Remove(customerToDelete);
+            customersList.RemoveAt(customerToDelete);
         }
 
-        public void Update(CustomersModel customer)
+        public void Update(long id, CustomersModel customer)
         {
-            customer.Cpf = customer.Cpf.Formatter();
+            var index = customersList.FindIndex(x => x.Id == id);
+            if (index == -1) throw new ArgumentException($"User Not Found with this Id: {id}");
 
-            var index = customersList.FindIndex(x => x.Id == customer.Id);
-            if (index == -1) throw new ArgumentException($"User Not Found with this Id: {customer.Id}");
-
-            if (customersList.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
+            if (customersList.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != id))
                 throw new ArgumentNullException($"Email or Cpf already exists.");
 
-            customer.Id = customersList[index].Id;
-
+            customer.Id = id;
             customersList[index] = customer;
         }
 
@@ -61,4 +58,3 @@ namespace Customer.DomainServices.Services
         }
     }
 }
-
