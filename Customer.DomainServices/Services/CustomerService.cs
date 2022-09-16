@@ -1,60 +1,76 @@
 ﻿using Customer.DomainModels.Formatters;
 using Customer.DomainModels.Models;
 using Customer.DomainServices.Services.Interfaces;
+using Customer.Infrastructure.Data.Context;
 
 namespace Customer.DomainServices.Services
 {
     public class CustomerService : ICustomerService
     {
-        private readonly List<CustomersModel> customersList = new();
+        private readonly FeatureContext _featureContext;
+
+        public CustomerService(FeatureContext featureContext)
+        {
+            _featureContext = featureContext ?? throw new ArgumentNullException(nameof(featureContext));
+        }
 
         public List<CustomersModel> Get()
         {
-            return customersList;
+            return _featureContext.Customers.ToList();
         }
 
         public long Create(CustomersModel customer)
         {
-            if (customersList.Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
+            if (_featureContext.Customers.Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
             {
                 throw new ArgumentException($"Email or Cpf already used. Email: {customer.Email}, Cpf: {customer.Cpf}");
             }
 
-            customer.Id = customersList.LastOrDefault()?.Id + 1 ?? 1;
-            customersList.Add(customer);
+            _featureContext.Customers.Add(customer);
+            _featureContext.SaveChanges();
             return customer.Id;
         }
 
         public void Delete(long id)
         {
-            var customerToDelete = customersList.FindIndex(x => x.Id == id);
-            if (customerToDelete == -1)
+            CustomersModel customerToDelete = _featureContext.Customers.FirstOrDefault(x => x.Id == id);
+            if (customerToDelete == null)
             {
                 throw new ArgumentNullException($"Customer Not Found with this Id: {id}");
             }
 
-            customersList.RemoveAt(customerToDelete);
+            _featureContext.Customers.Remove(customerToDelete).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            _featureContext.SaveChanges();
         }
 
-        public void Update(long id, CustomersModel customer)
+        public void Update(CustomersModel customer)
         {
-            var index = customersList.FindIndex(x => x.Id == id);
-            if (index == -1) throw new ArgumentException($"User Not Found with this Id: {id}");
+            if (!_featureContext.Customers.Any(x => x.Id == customer.Id))
+            {
+                throw new ArgumentException($"User Not Found with this Id: {customer.Id}");
+            }
 
-            if (customersList.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != id))
+            if (_featureContext.Customers.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
+            {
                 throw new ArgumentNullException($"Email or Cpf already exists.");
+            }
 
-            customer.Id = id;
-            customersList[index] = customer;
+            _featureContext.Customers.Update(customer);
+            _featureContext.SaveChanges();
         }
 
         public CustomersModel? GetSpecific(string cpf, string email)
         {
             cpf = cpf.Formatter();
 
-            var result = customersList.FirstOrDefault(x => x.Email == email && x.Cpf == cpf);
+            var result = _featureContext.Customers.FirstOrDefault(x => x.Email == email && x.Cpf == cpf);
 
             return result;
+        }
+        private CustomersModel GetById(long id)
+        {
+            CustomersModel customer = _featureContext.Customers.Find(id);
+            return customer;
         }
     }
 }

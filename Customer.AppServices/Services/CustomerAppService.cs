@@ -39,7 +39,8 @@ namespace Customer.AppServices.Services
         public void Update(long id, UpdateCustomerDto updateCustomer)
         {
             CustomersModel customer = _mapper.Map<CustomersModel>(updateCustomer);
-            _customerService.Update(id, customer);
+            customer.Id = id;
+            _customerService.Update(customer);
         }
     }
 }
