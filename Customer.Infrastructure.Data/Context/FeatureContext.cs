@@ -6,8 +6,6 @@ namespace Customer.Infrastructure.Data.Context
 {
     public class FeatureContext : DbContext
     {
-        public DbSet<CustomersModel> Customers { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerMapping).Assembly);
