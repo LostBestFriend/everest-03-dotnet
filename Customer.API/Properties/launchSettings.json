@@ -1,12 +1,13 @@
 {
   "profiles": {
-    "Customer.DomainServices": {
+    "Customer.API": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:61314;http://localhost:61318"
+      "applicationUrl": "https://localhost:59690;http://localhost:59691"
     }
   }
 }

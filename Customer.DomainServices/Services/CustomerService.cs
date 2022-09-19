@@ -38,13 +38,13 @@ namespace Customer.DomainServices.Services
         public void Delete(long id)
         {
 
-            CustomerModel customerToDelete = _customers.FirstOrDefault(x => x.Id == id);
+            CustomerModel? customerToDelete = _customers.FirstOrDefault(x => x.Id == id);
             if (customerToDelete is null)
             {
                 throw new ArgumentNullException($"Customer Not Found with this Id: {id}");
             }
 
-            _customers.Remove(customerToDelete).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            _customers.Remove(customerToDelete).State = EntityState.Deleted;
             _featureContext.SaveChanges();
         }
 
