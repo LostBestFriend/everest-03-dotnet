@@ -28,27 +28,27 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Address");
 
                     b.Property<string>("Cellphone")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(12)")
                         .HasColumnName("Cellphone");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("City");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(30)")
                         .HasColumnName("Country");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(11)")
                         .HasColumnName("Cpf");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -57,12 +57,12 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("Email");
 
                     b.Property<string>("EmailConfirmation")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<bool>("EmailSms")
                         .HasColumnType("tinyint(1)")
@@ -70,7 +70,7 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("FullName");
 
                     b.Property<int>("Number")
@@ -79,7 +79,7 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(10)")
                         .HasColumnName("PostalCode");
 
                     b.Property<bool>("Whatsapp")
