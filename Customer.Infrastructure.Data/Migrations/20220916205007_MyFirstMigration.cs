@@ -19,15 +19,13 @@ namespace Customer.Infrastructure.Data.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FullName = table.Column<string>(type: "varchar(100)", nullable: false)
+                    FullName = table.Column<string>(type: "varchar(250)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "varchar(50)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    EmailConfirmation = table.Column<string>(type: "varchar(50)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Cpf = table.Column<string>(type: "varchar(11)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cellphone = table.Column<string>(type: "varchar(12)", nullable: false)
+                    Cellphone = table.Column<string>(type: "varchar(13)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Country = table.Column<string>(type: "varchar(30)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),

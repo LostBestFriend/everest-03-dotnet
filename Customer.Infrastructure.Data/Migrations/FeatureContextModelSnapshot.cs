@@ -33,7 +33,7 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("Cellphone")
                         .IsRequired()
-                        .HasColumnType("varchar(12)")
+                        .HasColumnType("varchar(13)")
                         .HasColumnName("Cellphone");
 
                     b.Property<string>("City")
@@ -60,17 +60,13 @@ namespace Customer.Infrastructure.Data.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Email");
 
-                    b.Property<string>("EmailConfirmation")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
                     b.Property<bool>("EmailSms")
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("EmailSms");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(250)")
                         .HasColumnName("FullName");
 
                     b.Property<int>("Number")

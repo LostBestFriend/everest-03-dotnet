@@ -4,7 +4,7 @@ namespace Customer.AppServices.Services.Interface
 {
     public interface ICustomerAppService
     {
-        List<GetCustomerDto> Get();
+        IList<GetCustomerDto> Get();
         GetCustomerDto GetSpecific(string cpf, string email);
         long Create(CreateCustomerDto model);
         void Update(long id, UpdateCustomerDto model);

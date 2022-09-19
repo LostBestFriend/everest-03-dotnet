@@ -25,7 +25,7 @@ namespace Customer.AppServices.Services
         {
             _customerService.Delete(id);
         }
-        public List<GetCustomerDto> Get()
+        public IList<GetCustomerDto> Get()
         {
             var customerList = _customerService.Get();
             return _mapper.Map<List<GetCustomerDto>>(customerList);
