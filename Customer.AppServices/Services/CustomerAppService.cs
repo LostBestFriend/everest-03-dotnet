@@ -18,7 +18,7 @@ namespace Customer.AppServices.Services
         }
         public long Create(CreateCustomerDto createCustomer)
         {
-            var mapCustomer = _mapper.Map<CustomersModel>(createCustomer);
+            var mapCustomer = _mapper.Map<CustomerModel>(createCustomer);
             return _customerService.Create(mapCustomer);
         }
         public void Delete(long id)
@@ -38,7 +38,7 @@ namespace Customer.AppServices.Services
 
         public void Update(long id, UpdateCustomerDto updateCustomer)
         {
-            CustomersModel customer = _mapper.Map<CustomersModel>(updateCustomer);
+            CustomerModel customer = _mapper.Map<CustomerModel>(updateCustomer);
             customer.Id = id;
             _customerService.Update(customer);
         }

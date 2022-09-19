@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Customer.DomainModels\Customer.DomainModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

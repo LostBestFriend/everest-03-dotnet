@@ -4,10 +4,10 @@ namespace Customer.DomainServices.Services.Interfaces
 {
     public interface ICustomerService
     {
-        IList<CustomersModel> Get();
-        CustomersModel? GetSpecific(string cpf, string email);
-        long Create(CustomersModel model);
-        void Update(CustomersModel model);
+        IList<CustomerModel> Get();
+        CustomerModel? GetSpecific(string cpf, string email);
+        long Create(CustomerModel model);
+        void Update(CustomerModel model);
         void Delete(long id);
     }
 }

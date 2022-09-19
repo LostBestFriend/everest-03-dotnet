@@ -9,19 +9,20 @@ namespace Customer.DomainServices.Services
     public class CustomerService : ICustomerService
     {
         private readonly FeatureContext _featureContext;
-        private readonly DbSet<CustomersModel> _customers;
+        private readonly DbSet<CustomerModel> _customers;
 
         public CustomerService(FeatureContext featureContext)
         {
             _featureContext = featureContext ?? throw new ArgumentNullException(nameof(featureContext)); 
+            _customers = _featureContext.Set<CustomerModel>();
         }
 
-        public IList<CustomersModel> Get()
+        public IList<CustomerModel> Get()
         {
             return _customers.ToList();
         }
 
-        public long Create(CustomersModel customer)
+        public long Create(CustomerModel customer)
         {
 
             if (_customers.Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
@@ -37,7 +38,7 @@ namespace Customer.DomainServices.Services
         public void Delete(long id)
         {
 
-            CustomersModel customerToDelete = _customers.FirstOrDefault(x => x.Id == id);
+            CustomerModel customerToDelete = _customers.FirstOrDefault(x => x.Id == id);
             if (customerToDelete is null)
             {
                 throw new ArgumentNullException($"Customer Not Found with this Id: {id}");
@@ -47,7 +48,7 @@ namespace Customer.DomainServices.Services
             _featureContext.SaveChanges();
         }
 
-        public void Update(CustomersModel customer)
+        public void Update(CustomerModel customer)
         {
 
             if (!_customers.Any(x => x.Id == customer.Id))
@@ -64,7 +65,7 @@ namespace Customer.DomainServices.Services
             _featureContext.SaveChanges();
         }
 
-        public CustomersModel? GetSpecific(string cpf, string email)
+        public CustomerModel? GetSpecific(string cpf, string email)
         {
             cpf = cpf.Formatter();
 

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Customer.Infrastructure.Data.Mapping
 {
-    public class CustomerMapping : IEntityTypeConfiguration<CustomersModel>
+    public class CustomerMapping : IEntityTypeConfiguration<CustomerModel>
     {
-        public void Configure(EntityTypeBuilder<CustomersModel> builder)
+        public void Configure(EntityTypeBuilder<CustomerModel> builder)
         {
             builder.ToTable("Customers");
 

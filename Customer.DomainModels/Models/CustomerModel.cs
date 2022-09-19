@@ -2,12 +2,11 @@
 
 namespace Customer.DomainModels.Models
 {
-    public class CustomersModel : BaseModel
+    public class CustomerModel : BaseModel
     {
-        public CustomersModel(
+        public CustomerModel(
             string fullName,
             string email,
-            string emailConfirmation,
             string cpf,
             string cellphone,
             DateTime dateOfBirth,
@@ -21,7 +20,6 @@ namespace Customer.DomainModels.Models
         {
             FullName = fullName;
             Email = email;
-            EmailConfirmation = emailConfirmation;
             EmailSms = emailSms;
             Cellphone = cellphone;
             DateOfBirth = dateOfBirth;
@@ -36,7 +34,6 @@ namespace Customer.DomainModels.Models
 
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string EmailConfirmation { get; set; }
         public string Cpf { get; set; }
         public string Cellphone { get; set; }
         public string Country { get; set; }
