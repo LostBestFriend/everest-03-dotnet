@@ -21,41 +21,47 @@ namespace Customer.DomainServices.Services
 
         public long Create(CustomersModel customer)
         {
-            if (_featureContext.Set<CustomersModel>().Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
+            var context = _featureContext.Set<CustomersModel>();
+
+            if (context.Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
             {
                 throw new ArgumentException($"Email or Cpf already used. Email: {customer.Email}, Cpf: {customer.Cpf}");
             }
 
-            _featureContext.Set<CustomersModel>().Add(customer);
+            context.Add(customer);
             _featureContext.SaveChanges();
             return customer.Id;
         }
 
         public void Delete(long id)
         {
-            CustomersModel customerToDelete = _featureContext.Set<CustomersModel>().FirstOrDefault(x => x.Id == id);
+            var context = _featureContext.Set<CustomersModel>();
+
+            CustomersModel customerToDelete = context.FirstOrDefault(x => x.Id == id);
             if (customerToDelete == null)
             {
                 throw new ArgumentNullException($"Customer Not Found with this Id: {id}");
             }
 
-            _featureContext.Set<CustomersModel>().Remove(customerToDelete).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            context.Remove(customerToDelete).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             _featureContext.SaveChanges();
         }
 
         public void Update(CustomersModel customer)
         {
-            if (!_featureContext.Set<CustomersModel>().Any(x => x.Id == customer.Id))
+            var context = _featureContext.Set<CustomersModel>();
+
+            if (!context.Any(x => x.Id == customer.Id))
             {
                 throw new ArgumentException($"User Not Found with this Id: {customer.Id}");
             }
 
-            if (_featureContext.Set<CustomersModel>().Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
+            if (context.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
             {
                 throw new ArgumentNullException($"Email or Cpf already exists.");
             }
 
-            _featureContext.Set<CustomersModel>().Update(customer);
+            context.Update(customer);
             _featureContext.SaveChanges();
         }
 
