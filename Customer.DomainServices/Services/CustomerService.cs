@@ -73,10 +73,5 @@ namespace Customer.DomainServices.Services
 
             return result;
         }
-        private CustomersModel GetById(long id)
-        {
-            CustomersModel customer = _featureContext.Set<CustomersModel>().Find(id);
-            return customer;
-        }
     }
 }
