@@ -4,7 +4,7 @@ namespace Customer.DomainServices.Services.Interfaces
 {
     public interface ICustomerService
     {
-        IList<CustomerModel> Get();
+        IEnumerable<CustomerModel> Get();
         CustomerModel? GetSpecific(string cpf, string email);
         long Create(CustomerModel model);
         void Update(CustomerModel model);

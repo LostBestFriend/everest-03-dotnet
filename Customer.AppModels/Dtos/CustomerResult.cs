@@ -1,8 +1,8 @@
 ﻿namespace Customer.AppModels.Dtos
 {
-    public class GetCustomerDto
+    public class CustomerResult
     {
-        public GetCustomerDto(
+        public CustomerResult(
             long id,
             string fullName,
             string email,
@@ -35,7 +35,7 @@
             Number = number;
         }
 
-        protected GetCustomerDto() { }
+        protected CustomerResult() { }
 
         public long Id { get; set; }
         public string FullName { get; set; }

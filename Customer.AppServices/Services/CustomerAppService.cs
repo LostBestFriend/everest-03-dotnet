@@ -25,15 +25,15 @@ namespace Customer.AppServices.Services
         {
             _customerService.Delete(id);
         }
-        public IList<GetCustomerDto> Get()
+        public IList<CustomerResult> Get()
         {
             var customerList = _customerService.Get();
-            return _mapper.Map<List<GetCustomerDto>>(customerList);
+            return _mapper.Map<List<CustomerResult>>(customerList);
         }
-        public GetCustomerDto GetSpecific(string cpf, string email)
+        public CustomerResult GetSpecific(string cpf, string email)
         {
             var customer = _customerService.GetSpecific(cpf, email);
-            return _mapper.Map<GetCustomerDto>(customer);
+            return _mapper.Map<CustomerResult>(customer);
         }
 
         public void Update(long id, UpdateCustomerDto updateCustomer)

@@ -9,7 +9,7 @@ namespace Customer.AppServices.Mappings
         public CustomerProfile()
         {
             CreateMap<CreateCustomerDto, CustomerModel>();
-            CreateMap<CustomerModel, GetCustomerDto>();
+            CreateMap<CustomerModel, CustomerResult>();
             CreateMap<UpdateCustomerDto, CustomerModel>();
         }
     }

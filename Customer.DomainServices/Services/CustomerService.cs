@@ -17,9 +17,9 @@ namespace Customer.DomainServices.Services
             _customers = _featureContext.Set<CustomerModel>();
         }
 
-        public IList<CustomerModel> Get()
+        public IEnumerable<CustomerModel> Get()
         {
-            return _customers.ToList();
+            return _customers;
         }
 
         public long Create(CustomerModel customer)
