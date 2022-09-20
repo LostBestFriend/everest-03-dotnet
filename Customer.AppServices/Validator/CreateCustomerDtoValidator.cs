@@ -11,11 +11,11 @@ namespace Customer.AppServices.Validator
             RuleFor(x => x.FullName).NotEmpty();
 
             RuleFor(x => x.Email)
+                .EmailAddress()
                 .NotEmpty();
 
             RuleFor(x => x.EmailConfirmation)
                 .NotEmpty()
-                .EmailAddress()
                 .Equal(x => x.Email);
 
             RuleFor(x => CpfValidator.IsCpfValid(x.Cpf))

@@ -19,7 +19,7 @@ namespace Customer.Infrastructure.Data.Migrations
                 .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Customer.DomainModels.Models.CustomersModel", b =>
+            modelBuilder.Entity("Customer.DomainModels.Models.CustomerModel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("varchar(250)")
+                        .HasColumnType("var char(250)")
                         .HasColumnName("FullName");
 
                     b.Property<int>("Number")
@@ -75,7 +75,7 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("varchar(10)")
+                        .HasColumnType("varchar(11)")
                         .HasColumnName("PostalCode");
 
                     b.Property<bool>("Whatsapp")

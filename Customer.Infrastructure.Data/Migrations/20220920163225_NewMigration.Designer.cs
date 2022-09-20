@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Customer.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FeatureContext))]
-    [Migration("20220919185125_NewMigration")]
+    [Migration("20220920163225_NewMigration")]
     partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace Customer.Infrastructure.Data.Migrations
                 .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Customer.DomainModels.Models.CustomersModel", b =>
+            modelBuilder.Entity("Customer.DomainModels.Models.CustomerModel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,27 +30,27 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Address");
 
                     b.Property<string>("Cellphone")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(13)")
                         .HasColumnName("Cellphone");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("City");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(30)")
                         .HasColumnName("Country");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(11)")
                         .HasColumnName("Cpf");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -59,12 +59,8 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("Email");
-
-                    b.Property<string>("EmailConfirmation")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<bool>("EmailSms")
                         .HasColumnType("tinyint(1)")
@@ -72,7 +68,7 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("var char(250)")
                         .HasColumnName("FullName");
 
                     b.Property<int>("Number")
@@ -81,7 +77,7 @@ namespace Customer.Infrastructure.Data.Migrations
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(11)")
                         .HasColumnName("PostalCode");
 
                     b.Property<bool>("Whatsapp")

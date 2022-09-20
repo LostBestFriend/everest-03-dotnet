@@ -18,25 +18,29 @@ namespace Customer.Infrastructure.Data.Mapping
 
             builder.Property(x => x.FullName)
                 .IsRequired()
-                .HasColumnName("FullName");
+                .HasColumnName("FullName")
+                .HasColumnType("var char(250)");
 
             builder.Property(x => x.Email)
                 .IsRequired()
-                .HasColumnName("Email");
+                .HasColumnName("Email")
+                .HasColumnType("varchar(50)");
 
             builder.HasIndex(x => x.Email)
                 .IsUnique();
 
             builder.Property(x => x.Cpf)
                 .IsRequired()
-                .HasColumnName("Cpf");
+                .HasColumnName("Cpf")
+                .HasColumnType("varchar(11)");
 
             builder.HasIndex(x => x.Cpf)
                 .IsUnique();
 
             builder.Property(x => x.Cellphone)
                 .IsRequired()
-                .HasColumnName("Cellphone");
+                .HasColumnName("Cellphone")
+                .HasColumnType("varchar(13)");
 
             builder.Property(x => x.DateOfBirth)
                 .IsRequired()
@@ -52,19 +56,23 @@ namespace Customer.Infrastructure.Data.Mapping
 
             builder.Property(x => x.Country)
                 .IsRequired()
-                .HasColumnName("Country");
+                .HasColumnName("Country")
+                .HasColumnType("varchar(30)");
 
             builder.Property(x => x.City)
                 .IsRequired()
-                .HasColumnName("City");
+                .HasColumnName("City")
+                .HasColumnType("varchar(50)");
 
             builder.Property(x => x.PostalCode)
                 .IsRequired()
-                .HasColumnName("PostalCode");
+                .HasColumnName("PostalCode")
+                .HasColumnType("varchar(11)");
 
             builder.Property(x => x.Address)
                 .IsRequired()
-                .HasColumnName("Address");
+                .HasColumnName("Address")
+                .HasColumnType("varchar(100)");
 
             builder.Property(x => x.Number)
                 .IsRequired()

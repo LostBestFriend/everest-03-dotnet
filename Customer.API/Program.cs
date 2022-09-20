@@ -1,7 +1,5 @@
-using Customer.AppModels.Dtos;
 using Customer.AppServices.Services;
 using Customer.AppServices.Services.Interface;
-using Customer.AppServices.Validator;
 using Customer.DomainServices.Services;
 using Customer.DomainServices.Services.Interfaces;
 using Customer.Infrastructure.Data.Context;
@@ -22,8 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<ICustomerAppService, CustomerAppService>();
 builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddScoped<IValidator<CreateCustomerDto>, CreateCustomerDtoValidator>();
-builder.Services.AddScoped<IValidator<UpdateCustomerDto>, UpdateCustomerDtoValidator>();
+builder.Services.AddValidatorsFromAssembly(Assembly.Load("Customer.AppServices"));
 builder.Services.AddAutoMapper(Assembly.Load("Customer.AppServices"));
 
 var app = builder.Build();

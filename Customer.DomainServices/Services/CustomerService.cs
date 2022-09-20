@@ -53,12 +53,12 @@ namespace Customer.DomainServices.Services
 
             if (!_customers.Any(x => x.Id == customer.Id))
             {
-                throw new ArgumentException($"User Not Found with this Id: {customer.Id}");
+                throw new ArgumentNullException($"User Not Found with this Id: {customer.Id}");
             }
 
             if (_customers.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
             {
-                throw new ArgumentNullException($"Email or Cpf already exists.");
+                throw new ArgumentException($"Email or Cpf already exists.");
             }
 
             _customers.Update(customer);
