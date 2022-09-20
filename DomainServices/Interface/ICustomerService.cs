@@ -5,8 +5,8 @@ namespace DomainServices.Interface
     public interface ICustomerService
     {
         IEnumerable<Customer> Get();
-        Customer? GetSpecific(string cpf, string email);
-        long Create(Customer model);
+        Task<Customer> GetByIdAsync(long id);
+        Task<long> CreateAsync(Customer model);
         void Update(Customer model);
         void Delete(long id);
     }

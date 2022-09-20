@@ -1,74 +1,83 @@
 ﻿using DomainModels;
 using DomainServices.Interface;
-using Infrastructure.CrossCutting;
+using EntityFrameworkCore.UnitOfWork.Interfaces;
 using Infrastructure.Data.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace DomainServices
 {
     public class CustomerService : ICustomerService
     {
-        private readonly FeatureContext _featureContext;
-        private readonly DbSet<Customer> _customers;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepositoryFactory _repositoryFactory;
 
-        public CustomerService(FeatureContext featureContext)
+        public CustomerService(IUnitOfWork<FeatureContext> unitOfWork, IRepositoryFactory<FeatureContext> repositoryFactory)
         {
-            _featureContext = featureContext ?? throw new ArgumentNullException(nameof(featureContext));
-            _customers = _featureContext.Set<Customer>();
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _repositoryFactory = repositoryFactory ?? (IRepositoryFactory)_unitOfWork;
         }
 
         public IEnumerable<Customer> Get()
         {
-            return _customers;
+            var _customerRepo = _repositoryFactory.Repository<Customer>();
+
+            var query = _customerRepo.MultipleResultQuery();
+
+            return _customerRepo.Search(query);
         }
 
-        public long Create(Customer customer)
+        public async Task<long> CreateAsync(Customer customer)
         {
-            if (_customers.Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
+            var _customerRepo = _unitOfWork.Repository<Customer>();
+
+            if (_customerRepo.Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
             {
                 throw new ArgumentException($"Email or Cpf already used. Email: {customer.Email}, Cpf: {customer.Cpf}");
             }
 
-            _customers.Add(customer);
-            _featureContext.SaveChanges();
+            await _customerRepo.AddAsync(customer).ConfigureAwait(false);
+            await _unitOfWork.SaveChangesAsync().ConfigureAwait(false);
+
             return customer.Id;
         }
 
         public void Delete(long id)
         {
-            var customerToDelete = _customers.FirstOrDefault(x => x.Id == id);
-            if (customerToDelete is null)
+            var _customerRepo = _unitOfWork.Repository<Customer>();
+
+            if (!_customerRepo.Any(x => x.Id == id))
             {
                 throw new ArgumentNullException($"Customer Not Found with this Id: {id}");
             }
 
-            _customers.Remove(customerToDelete).State = EntityState.Deleted;
-            _featureContext.SaveChanges();
+            _customerRepo.Remove(x => x.Id == id);
         }
 
         public void Update(Customer customer)
         {
-            if (!_customers.Any(x => x.Id == customer.Id))
+            var _customerRepo = _unitOfWork.Repository<Customer>();
+
+            if (!_customerRepo.Any(x => x.Id == customer.Id))
             {
                 throw new ArgumentNullException($"User Not Found with this Id: {customer.Id}");
             }
 
-            if (_customers.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
+            if (_customerRepo.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
             {
-                throw new ArgumentException($"Email or Cpf already exists.");
+                throw new ArgumentException($"Email or Cpf already exists. Email: {customer.Email}, Cpf: {customer.Cpf}");
             }
 
-            _customers.Update(customer);
-            _featureContext.SaveChanges();
+            _customerRepo.Update(customer);
+
+            _unitOfWork.SaveChanges();
         }
 
-        public Customer? GetSpecific(string cpf, string email)
+        public async Task<Customer> GetByIdAsync(long id)
         {
-            cpf = cpf.FormatCpf();
+            var _customerRepo = _repositoryFactory.Repository<Customer>();
 
-            var result = _customers.FirstOrDefault(x => x.Email == email && x.Cpf == cpf);
+            var query = _customerRepo.SingleResultQuery().AndFilter(x => x.Id.Equals(id));
 
-            return result;
+            return await _customerRepo.FirstOrDefaultAsync(query);
         }
     }
 }
