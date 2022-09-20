@@ -4,7 +4,7 @@ services:
     image: mysql:8.0
     restart: always
     environment: 
-      MYSQL_DATABASE: Database
+      MYSQL_DATABASE: warrendb
       MYSQL_USER: lucasperinwarren
       MYSQL_PASSWORD: warren123
       MYSQL_ROOT_PASSWORD: 123456
