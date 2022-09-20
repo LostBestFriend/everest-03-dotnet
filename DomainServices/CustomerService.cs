@@ -1,6 +1,6 @@
 ﻿using DomainModels;
-using DomainModels.Extensions;
 using DomainServices.Interface;
+using Infrastructure.CrossCutting;
 using Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -64,7 +64,7 @@ namespace DomainServices
 
         public Customer? GetSpecific(string cpf, string email)
         {
-            cpf = cpf.Formatter();
+            cpf = cpf.FormatCpf();
 
             var result = _customers.FirstOrDefault(x => x.Email == email && x.Cpf == cpf);
 

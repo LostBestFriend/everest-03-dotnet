@@ -1,4 +1,4 @@
-﻿using DomainModels.Extensions;
+﻿using Infrastructure.CrossCutting;
 
 namespace DomainModels
 {
@@ -23,7 +23,7 @@ namespace DomainModels
             EmailSms = emailSms;
             Cellphone = cellphone;
             DateOfBirth = dateOfBirth;
-            Cpf = cpf.Formatter();
+            Cpf = cpf.FormatCpf();
             Whatsapp = whatsapp;
             Country = country;
             City = city;
