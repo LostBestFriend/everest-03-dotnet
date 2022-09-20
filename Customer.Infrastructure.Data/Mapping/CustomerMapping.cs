@@ -19,7 +19,7 @@ namespace Customer.Infrastructure.Data.Mapping
             builder.Property(x => x.FullName)
                 .IsRequired()
                 .HasColumnName("FullName")
-                .HasColumnType("var char(250)");
+                .HasColumnType("varchar(250)");
 
             builder.Property(x => x.Email)
                 .IsRequired()
