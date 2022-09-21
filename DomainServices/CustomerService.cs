@@ -29,9 +29,14 @@ namespace DomainServices
         {
             var _customerRepo = _unitOfWork.Repository<Customer>();
 
-            if (_customerRepo.Any(x => x.Email == customer.Email || x.Cpf == customer.Cpf))
+            if (_customerRepo.Any(x => x.Email == customer.Email))
             {
-                throw new ArgumentException($"Email or Cpf already used. Email: {customer.Email}, Cpf: {customer.Cpf}");
+                throw new ArgumentException($"Email already used. Email: {customer.Email}");
+            }
+
+            if(_customerRepo.Any(x => x.Cpf == customer.Cpf))
+            {
+                throw new ArgumentException($"Cpf already used. Cpf: {customer.Cpf}");
             }
 
             await _customerRepo.AddAsync(customer).ConfigureAwait(false);
@@ -61,9 +66,14 @@ namespace DomainServices
                 throw new ArgumentNullException($"User Not Found with this Id: {customer.Id}");
             }
 
-            if (_customerRepo.Any(x => (x.Cpf == customer.Cpf || x.Email == customer.Email) && x.Id != customer.Id))
+            if (_customerRepo.Any(x => x.Email == customer.Email))
             {
-                throw new ArgumentException($"Email or Cpf already exists. Email: {customer.Email}, Cpf: {customer.Cpf}");
+                throw new ArgumentException($"Email already used. Email: {customer.Email}");
+            }
+
+            if (_customerRepo.Any(x => x.Cpf == customer.Cpf))
+            {
+                throw new ArgumentException($"Cpf already used. Cpf: {customer.Cpf}");
             }
 
             _customerRepo.Update(customer);
