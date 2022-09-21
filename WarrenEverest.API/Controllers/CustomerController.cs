@@ -17,11 +17,11 @@ namespace WarrenEverest.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateCustomerRequest model)
+        public async Task<IActionResult> CreateAsync(CreateCustomerRequest model)
         {
             try
             {
-                var newCustomer = _customerAppService.Create(model);
+                var newCustomer = await _customerAppService.CreateAsync(model).ConfigureAwait(false);
                 return CreatedAtRoute(nameof(Get), new { id = newCustomer });
             }
             catch (ValidationException ex)
@@ -49,16 +49,16 @@ namespace WarrenEverest.API.Controllers
 
         }
 
-        [HttpGet("cpf-and-email")]
-        public IActionResult GetSpecific(string cpf, string email)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(long id)
         {
-            var result = _customerAppService.GetSpecific(cpf, email);
+            var result = await _customerAppService.GetByIdAsync(id).ConfigureAwait(false);
 
             if (result != null)
             {
                 return Ok(result);
             }
-            return NotFound($"Customer Not Found with this Email: {email} and Cpf: {cpf}");
+            return NotFound($"Customer Not Found with this Id: {id}");
         }
 
         [HttpPut("{id}")]

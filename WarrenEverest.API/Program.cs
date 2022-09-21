@@ -2,6 +2,7 @@ using AppServices;
 using AppServices.Interface;
 using DomainServices;
 using DomainServices.Interface;
+using EntityFrameworkCore.UnitOfWork.Extensions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Data.Context;
@@ -22,6 +23,7 @@ builder.Services.AddTransient<ICustomerAppService, CustomerAppService>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssembly(Assembly.Load("AppServices"));
 builder.Services.AddAutoMapper(Assembly.Load("AppServices"));
+builder.Services.AddUnitOfWork<FeatureContext>();
 
 var app = builder.Build();
 
