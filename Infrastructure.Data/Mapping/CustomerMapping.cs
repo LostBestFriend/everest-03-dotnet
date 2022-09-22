@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Mapping
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .IsRequired()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("Id");
 
             builder.Property(x => x.FullName)
@@ -76,7 +76,7 @@ namespace Infrastructure.Data.Mapping
 
             builder.Property(x => x.Number)
                 .IsRequired()
-                .HasColumnName("number");
+                .HasColumnName("Number");
         }
     }
 }

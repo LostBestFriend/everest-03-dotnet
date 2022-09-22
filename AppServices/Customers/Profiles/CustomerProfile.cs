@@ -1,8 +1,8 @@
-﻿using AppModels.Mapper;
+﻿using AppModels.Customers.Mapper;
 using AutoMapper;
 using DomainModels;
 
-namespace AppServices.Profiles
+namespace AppServices.Customers.Profiles
 {
     public class CustomerProfile : Profile
     {

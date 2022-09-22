@@ -1,6 +1,6 @@
-﻿using AppModels.Mapper;
+﻿using AppModels.Customers.Mapper;
 
-namespace AppServices.Interface
+namespace AppServices.Customers.Interface
 {
     public interface ICustomerAppService
     {

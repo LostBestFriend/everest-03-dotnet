@@ -16,4 +16,10 @@
     <ProjectReference Include="..\DomainServices\DomainServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Orders\Interface\" />
+    <Folder Include="Portfolios\Interface\" />
+    <Folder Include="Products\Interface\" />
+  </ItemGroup>
+
 </Project>

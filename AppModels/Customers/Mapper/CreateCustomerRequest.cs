@@ -1,4 +1,4 @@
-﻿namespace AppModels.Mapper
+﻿namespace AppModels.Customers.Mapper
 {
     public class CreateCustomerRequest
     {

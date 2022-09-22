@@ -1,4 +1,4 @@
-﻿using AppModels.Mapper;
+﻿using AppModels.Customers.Mapper;
 using FluentValidation;
 
 namespace AppServices.Validator

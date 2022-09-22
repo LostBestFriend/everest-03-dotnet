@@ -1,9 +1,9 @@
-﻿using AppModels.Mapper;
-using AppServices.Interface;
+﻿using AppModels.Customers.Mapper;
+using AppServices.Customers.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace WarrenEverest.API.Controllers
+namespace WarrenEverest.API.Controllers.Customers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,7 +30,7 @@ namespace WarrenEverest.API.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return Problem(ex.InnerException?.Message ?? ex.Message);
             }
         }
 

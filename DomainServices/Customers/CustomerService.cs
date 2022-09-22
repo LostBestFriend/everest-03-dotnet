@@ -1,9 +1,9 @@
 ﻿using DomainModels;
-using DomainServices.Interface;
+using DomainServices.Customers.Interface;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using Infrastructure.Data.Context;
 
-namespace DomainServices
+namespace DomainServices.Customers
 {
     public class CustomerService : ICustomerService
     {
@@ -34,7 +34,7 @@ namespace DomainServices
                 throw new ArgumentException($"Email already used. Email: {customer.Email}");
             }
 
-            if(_customerRepo.Any(x => x.Cpf == customer.Cpf))
+            if (_customerRepo.Any(x => x.Cpf == customer.Cpf))
             {
                 throw new ArgumentException($"Cpf already used. Cpf: {customer.Cpf}");
             }

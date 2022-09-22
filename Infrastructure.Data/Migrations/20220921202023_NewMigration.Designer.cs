@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FeatureContext))]
-    partial class FeatureContextModelSnapshot : ModelSnapshot
+    [Migration("20220921202023_NewMigration")]
+    partial class NewMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,6 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("DomainModels.Customer", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("Id");
 
@@ -104,12 +105,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("decimal(65,30)")
                         .HasColumnName("AccountBalance");
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("CustomerBankInfos", (string)null);
                 });
@@ -236,15 +232,15 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("PortfolioProduct");
                 });
 
-            modelBuilder.Entity("DomainModels.CustomerBankInfo", b =>
+            modelBuilder.Entity("DomainModels.Customer", b =>
                 {
-                    b.HasOne("DomainModels.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
+                    b.HasOne("DomainModels.CustomerBankInfo", "CustomerBankInfo")
+                        .WithOne("Customer")
+                        .HasForeignKey("DomainModels.Customer", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("CustomerBankInfo");
                 });
 
             modelBuilder.Entity("DomainModels.Order", b =>
@@ -279,6 +275,11 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DomainModels.CustomerBankInfo", b =>
+                {
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("DomainModels.Portfolio", b =>

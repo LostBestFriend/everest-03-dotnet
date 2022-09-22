@@ -1,7 +1,11 @@
-using AppServices;
-using AppServices.Interface;
-using DomainServices;
-using DomainServices.Interface;
+using AppServices.CustomerBankInfos;
+using AppServices.CustomerBankInfos.Interface;
+using AppServices.Customers;
+using AppServices.Customers.Interface;
+using DomainServices.CustomerBankInfos;
+using DomainServices.CustomerBankInfos.Interface;
+using DomainServices.Customers;
+using DomainServices.Customers.Interface;
 using EntityFrameworkCore.UnitOfWork.Extensions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -15,11 +19,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<FeatureContext>(
     options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(x => x.SuppressAsyncSuffixInActionNames = false);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<ICustomerAppService, CustomerAppService>();
+builder.Services.AddTransient<ICustomerBankInfoService, CustomerBankInfoService>();
+builder.Services.AddTransient<ICustomerBankInfoAppService, CustomerBankInfoAppService>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssembly(Assembly.Load("AppServices"));
 builder.Services.AddAutoMapper(Assembly.Load("AppServices"));

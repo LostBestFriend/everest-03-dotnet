@@ -1,26 +1,34 @@
-﻿using AppModels.Mapper;
-using AppServices.Interface;
+﻿using AppModels.Customers.Mapper;
+using AppServices.CustomerBankInfos.Interface;
+using AppServices.Customers.Interface;
 using AutoMapper;
 using DomainModels;
-using DomainServices.Interface;
+using DomainServices.Customers.Interface;
 
-namespace AppServices
+namespace AppServices.Customers
 {
     public class CustomerAppService : ICustomerAppService
     {
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
+        private readonly ICustomerBankInfoAppService _customerBankInfoAppService;
 
-        public CustomerAppService(ICustomerService customerService, IMapper mapper)
+        public CustomerAppService(ICustomerService customerService, IMapper mapper,
+            ICustomerBankInfoAppService customerBankInfoAppService)
         {
             _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _customerBankInfoAppService = customerBankInfoAppService ?? 
+                throw new ArgumentNullException(nameof(customerBankInfoAppService));
         }
 
         public async Task<long> CreateAsync(CreateCustomerRequest createCustomer)
         {
             var mapCustomer = _mapper.Map<Customer>(createCustomer);
-            return await _customerService.CreateAsync(mapCustomer).ConfigureAwait(false);
+            var result = await _customerService.CreateAsync(mapCustomer).ConfigureAwait(false);
+
+            _customerBankInfoAppService.Create(result);
+            return result;
         }
 
         public void Delete(long id)
