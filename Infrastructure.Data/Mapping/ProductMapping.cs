@@ -25,6 +25,10 @@ namespace Infrastructure.Data.Mapping
                 .HasColumnName("Symbol")
                 .HasColumnType("varchar(15)");
 
+            builder.Property(x => x.UnitPrice)
+                .IsRequired()
+                .HasColumnName("UnitPrice");
+
             builder.Property(x => x.IssuanceAt)
                 .IsRequired()
                 .HasColumnName("IssuanceAt");

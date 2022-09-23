@@ -15,7 +15,7 @@ namespace Infrastructure.Data.Mapping
             builder.HasIndex(x => x.LiquidatedAt);
 
             builder.Property(x => x.Id)
-                .IsRequired()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("Id");
 
             builder.Property(x => x.Quotes)
@@ -38,9 +38,19 @@ namespace Infrastructure.Data.Mapping
                 .IsRequired()
                 .HasColumnName("Direction");
 
+            builder.Property(x => x.PortfolioId)
+                .IsRequired();
+
             builder.HasOne(x => x.Portfolio)
                 .WithMany(p => p.Orders)
                 .HasForeignKey(pt => pt.PortfolioId);
+
+            builder.Property(x => x.ProductId)
+                .IsRequired();
+
+            builder.HasOne(x => x.Product)
+                .WithMany(p => p.Orders)
+                .HasForeignKey(pt => pt.ProductId);
         }
     }
 }

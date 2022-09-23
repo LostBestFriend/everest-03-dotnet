@@ -4,7 +4,7 @@ namespace AppServices.Customers.Interface
 {
     public interface ICustomerAppService
     {
-        IEnumerable<CustomerResult> Get();
+        IEnumerable<CustomerResult> GetAllCustomers();
         Task<CustomerResult> GetByIdAsync(long id);
         Task<long> CreateAsync(CreateCustomerRequest model);
         void Update(long id, UpdateCustomerRequest model);

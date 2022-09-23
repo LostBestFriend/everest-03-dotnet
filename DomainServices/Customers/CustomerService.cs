@@ -16,7 +16,7 @@ namespace DomainServices.Customers
             _repositoryFactory = repositoryFactory ?? (IRepositoryFactory)_unitOfWork;
         }
 
-        public IEnumerable<Customer> Get()
+        public IEnumerable<Customer> GetAllCustomers()
         {
             var _customerRepo = _repositoryFactory.Repository<Customer>();
 

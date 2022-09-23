@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Mapping
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .IsRequired()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("Id");
 
             builder.Property(x => x.Name)
@@ -24,11 +24,14 @@ namespace Infrastructure.Data.Mapping
             builder.Property(x => x.Description)
                 .IsRequired()
                 .HasColumnName("Description")
-                .HasColumnType("varchar(00)");
+                .HasColumnType("varchar(200)");
 
             builder.Property(x => x.TotalBalance)
                 .IsRequired()
                 .HasColumnName("TotalBalance");
+
+            builder.Property(x => x.CustomerId)
+                .IsRequired();
 
             builder.HasMany(x => x.Products)
                 .WithMany(p => p.Portfolios);

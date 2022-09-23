@@ -11,5 +11,12 @@
         public Portfolio Portfolio { get; set; }
         public long PortfolioId { get; set; }
         public Product Product { get; set; }
+        public long ProductId { get; set; }
+
+        public Order(long portfolioId, long productId)
+        {
+            PortfolioId = portfolioId;
+            ProductId = productId;
+        }
     }
 }

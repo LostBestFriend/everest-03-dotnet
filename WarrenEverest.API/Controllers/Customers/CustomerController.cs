@@ -22,7 +22,7 @@ namespace WarrenEverest.API.Controllers.Customers
             try
             {
                 var newCustomer = await _customerAppService.CreateAsync(model).ConfigureAwait(false);
-                return CreatedAtRoute(nameof(Get), new { id = newCustomer });
+                return CreatedAtRoute(nameof(GetAllCustomers), new { id = newCustomer });
             }
             catch (ValidationException ex)
             {
@@ -34,12 +34,12 @@ namespace WarrenEverest.API.Controllers.Customers
             }
         }
 
-        [HttpGet(Name = "Get")]
-        public IActionResult Get()
+        [HttpGet(Name = "GetAllCustomers")]
+        public IActionResult GetAllCustomers()
         {
             try
             {
-                var result = _customerAppService.Get();
+                var result = _customerAppService.GetAllCustomers();
                 return result.Any() ? Ok(result) : NoContent();
             }
             catch (Exception ex)

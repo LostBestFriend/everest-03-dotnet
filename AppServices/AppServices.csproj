@@ -17,8 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Orders\Interface\" />
-    <Folder Include="Portfolios\Interface\" />
     <Folder Include="Products\Interface\" />
   </ItemGroup>
 

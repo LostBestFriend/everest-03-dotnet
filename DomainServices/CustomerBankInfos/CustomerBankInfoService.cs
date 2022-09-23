@@ -17,17 +17,17 @@ namespace DomainServices.CustomerBankInfos
             _repositoryFactory = repositoryFactory ?? (IRepositoryFactory)_unitOfWork;
         }
 
-        public void Deposit(long CustomerId, decimal amount)
+        public void Deposit(long customerId, decimal amount)
         {
             var _customerBankInfoRepo = _unitOfWork.Repository<CustomerBankInfo>();
 
-            var query = _customerBankInfoRepo.SingleResultQuery().AndFilter(x => x.Id.Equals(CustomerId));
+            var query = _customerBankInfoRepo.SingleResultQuery().AndFilter(x => x.CustomerId.Equals(customerId));
 
             var bankInfo = _customerBankInfoRepo.FirstOrDefault(query);
 
             if (bankInfo == null)
             {
-                throw new ArgumentNullException($"User Not Found with this Id: {CustomerId}");
+                throw new ArgumentNullException($"User Not Found with this Id: {customerId}");
             }
 
             if (amount <= 0)
@@ -41,33 +41,33 @@ namespace DomainServices.CustomerBankInfos
             _unitOfWork.SaveChanges();
         }
 
-        public async Task<decimal> GetBalanceByIdAsync(long CustomerId)
+        public async Task<decimal> GetBalanceByIdAsync(long customerId)
         {
             var _customerBankInfoRepo = _repositoryFactory.Repository<CustomerBankInfo>();
 
-            var query = _customerBankInfoRepo.SingleResultQuery().AndFilter(x => x.Id.Equals(CustomerId));
+            var query = _customerBankInfoRepo.SingleResultQuery().AndFilter(x => x.CustomerId.Equals(customerId));
 
             var bankInfo = await _customerBankInfoRepo.FirstOrDefaultAsync(query);
 
             if (bankInfo == null)
             {
-                throw new ArgumentNullException($"Customer not found with this id. Id: {CustomerId}");
+                throw new ArgumentNullException($"Customer not found with this id. Id: {customerId}");
             }
 
             return bankInfo.AccountBalance;
         }
 
-        public void Withdraw(long CustomerId, decimal amount)
+        public void Withdraw(long customerId, decimal amount)
         {
             var _customerBankInfoRepo = _unitOfWork.Repository<CustomerBankInfo>();
 
-            var query = _customerBankInfoRepo.SingleResultQuery().AndFilter(x => x.Id.Equals(CustomerId));
+            var query = _customerBankInfoRepo.SingleResultQuery().AndFilter(x => x.CustomerId.Equals(customerId));
 
             var bankInfo = _customerBankInfoRepo.FirstOrDefault(query);
 
             if (bankInfo == null)
             {
-                throw new ArgumentNullException($"User Not Found with this Id: {CustomerId}");
+                throw new ArgumentNullException($"User Not Found with this Id: {customerId}");
             }
 
             if (amount > bankInfo.AccountBalance || amount <= 0)
@@ -85,7 +85,7 @@ namespace DomainServices.CustomerBankInfos
         {
             var _customerBankInfoRepo = _unitOfWork.Repository<CustomerBankInfo>();
 
-            if (_customerBankInfoRepo.Any(x => x.Id.Equals(customerId)))
+            if (_customerBankInfoRepo.Any(x => x.CustomerId.Equals(customerId)))
             {
                 throw new ArgumentException($"CustomerId already used. CustomerId: {customerId}");
             }

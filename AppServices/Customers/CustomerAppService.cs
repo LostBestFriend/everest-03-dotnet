@@ -36,9 +36,9 @@ namespace AppServices.Customers
             _customerService.Delete(id);
         }
 
-        public IEnumerable<CustomerResult> Get()
+        public IEnumerable<CustomerResult> GetAllCustomers()
         {
-            var customerList = _customerService.Get();
+            var customerList = _customerService.GetAllCustomers();
             return _mapper.Map<List<CustomerResult>>(customerList);
         }
 

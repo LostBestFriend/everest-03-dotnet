@@ -1,5 +1,4 @@
 ﻿using AppServices.CustomerBankInfos.Interface;
-using AutoMapper;
 using DomainServices.CustomerBankInfos.Interface;
 
 namespace AppServices.CustomerBankInfos
@@ -21,11 +20,9 @@ namespace AppServices.CustomerBankInfos
 
         public async Task<decimal> GetBalanceByIdAsync(long CustomerId)
         {
-            var customerBankInfo = await _customerBankInfoService
+            return await _customerBankInfoService
                 .GetBalanceByIdAsync(CustomerId)
-                .ConfigureAwait(false);
-
-            return customerBankInfo;
+                .ConfigureAwait(false);  
         }
 
         public void Withdraw(long CustomerId, decimal amount)
